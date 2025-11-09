@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>들고가유 - 대전권 대학생 맞춤형 로컬 상생 플랫폼</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif;
+            background: white;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF8C00;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #FF8C00;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FF8C00;
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #FF8C00;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding: 10rem 2rem 6rem;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffffff 50%, #fef3c7 100%);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-logo-container {
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            filter: drop-shadow(0 10px 20px rgba(255, 140, 0, 0.2));
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, #fed7aa, #fdba74);
+            color: #ea580c;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+
+        .hero h1 .highlight {
+            color: #FF8C00;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: rgba(255, 140, 0, 0.2);
+            z-index: -1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: #6b7280;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            line-height: 1.7;
+        }
+
+        .hero-brand {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF8C00, #ea580c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 5rem;
+        }
+
+        .btn {
+            padding: 1.1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            letter-spacing: -0.3px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF8C00, #ea580c);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 140, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #FF8C00;
+            border: 2px solid #FF8C00;
+        }
+
+        .btn-secondary:hover {
+            background: #fff7ed;
+            transform: translateY(-3px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Section */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+            line-height: 1.3;
+            color: #1f2937;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: #6b7280;
+            font-weight: 600;
+            margin-bottom: 4rem;
+            line-height: 1.6;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 1.5rem;
+            transition: all 0.4s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #f3f4f6;
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            border-color: #FF8C00;
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+            color: #1f2937;
+        }
+
+        .card-desc {
+            color: #6b7280;
+            font-weight: 500;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Solution Section */
+        .green-section {
+            background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+            padding: 6rem 2rem;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .solution-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, #fed7aa, #fdba74);
+            color: #ea580c;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #fed7aa, #fdba74);
+            border-radius: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.2);
+        }
+
+        .info-box p {
+            font-size: 1.15rem;
+            color: #78350f;
+            line-height: 1.7;
+        }
+
+        /* Benefits */
+        .benefit-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: start;
+            gap: 2rem;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.4s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+        }
+
+        .benefit-item:hover {
+            background: linear-gradient(135deg, #fff7ed, #ffffff);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.15);
+            border-color: #FF8C00;
+        }
+
+        .benefit-icon {
+            width: 5rem;
+            height: 5rem;
+            background: linear-gradient(135deg, #fff7ed, #fed7aa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.2);
+            flex-shrink: 0;
+            font-size: 2.5rem;
+        }
+
+        .benefit-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            text-align: left;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #1f2937;
+        }
+
+        .benefit-content p {
+            font-size: 1.1rem;
+            color: #6b7280;
+            line-height: 1.8;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        /* Trust Section */
+        .orange-section {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+            padding: 6rem 2rem;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        /* Pricing */
+        .pricing-alert {
+            text-align: center;
+            margin: 2rem 0 4rem;
+        }
+
+        .pricing-alert span {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #dc2626;
+            border-radius: 9999px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
+            animation: wiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-card {
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #FF8C00, #ea580c);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, #FF8C00, #ea580c);
+            color: white;
+            box-shadow: 0 20px 40px rgba(255, 140, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.08);
+        }
+
+        .pricing-card.standard {
+            background: white;
+            border: 2px solid #f3f4f6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .pricing-card.standard:hover {
+            transform: translateY(-5px);
+            border-color: #FF8C00;
+        }
+
+        .pricing-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .pricing-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .pricing-footer {
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-size: 0.9rem;
+        }
+
+        .pricing-card.standard .pricing-footer {
+            border-top-color: #e5e7eb;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #FF8C00 0%, #ea580c 100%);
+            color: white;
+            border-radius: 0;
+            padding: 6rem 2rem;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-emoji {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .form-container {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin-top: 3rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .form-container h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255,255,255,0.25);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: white;
+            color: #FF8C00;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo svg {
+            width: 50px;
+            height: 50px;
+            opacity: 0.9;
+        }
+
+        .footer-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-desc {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+                min-height: auto;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .benefit-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .benefit-content h3,
+            .benefit-content p {
+                text-align: center;
+            }
+
+            .benefit-item:hover {
+                transform: translateY(-5px);
+            }
+
+            .stats {
+                gap: 1.5rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg width="50" height="50" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="50" width="60" height="50" rx="4" fill="#FF8C00"/>
+                    <path d="M 45 50 Q 45 35 60 35 Q 75 35 75 50" stroke="#FF8C00" stroke-width="6" fill="none" stroke-linecap="round"/>
+                    <circle cx="48" cy="70" r="3" fill="white"/>
+                    <circle cx="72" cy="70" r="3" fill="white"/>
+                    <path d="M 48 80 Q 60 88 72 80" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="66" cy="83" rx="4" ry="3" fill="white"/>
+                </svg>
+                <span class="logo-text">들고가유</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#problem">문제</a></li>
+                <li><a href="#solution">솔루션</a></li>
+                <li><a href="#benefits">혜택</a></li>
+                <li><a href="#trust">신뢰</a></li>
+                <li><a href="#pricing">가격</a></li>
+                <li><a href="#cta">신청</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-logo-container">
+                <svg class="hero-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="50" width="60" height="50" rx="4" fill="#FF8C00"/>
+                    <path d="M 45 50 Q 45 35 60 35 Q 75 35 75 50" stroke="#FF8C00" stroke-width="6" fill="none" stroke-linecap="round"/>
+                    <circle cx="48" cy="70" r="3" fill="white"/>
+                    <circle cx="72" cy="70" r="3" fill="white"/>
+                    <path d="M 48 80 Q 60 88 72 80" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="66" cy="83" rx="4" ry="3" fill="white"/>
+                </svg>
+            </div>
+
+            <div class="badge">대전권 대학생 맞춤형 로컬 상생 플랫폼</div>
+            
+            <h1>💰 대학생 외식비 부담 끝!</h1>
+            <h1><span class="highlight">폐기 직전 마감 음식</span>을<br>최대 80% 할인 받으세요</h1>
+            
+            <p class="hero-subtitle">음식은 살리고, 비용은 줄이고</p>
+            <p class="hero-brand">들고가유</p>
+
+            <div class="cta-buttons">
+                <a href="#cta" class="btn btn-primary">초기 파트너 신청하기 🚀</a>
+                <a href="#solution" class="btn btn-secondary">자세히 알아보기</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" style="color: #FF8C00;">80%</div>
+                    <div class="stat-label">최대 할인율</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" style="color: #2ECC71;">5~6%</div>
+                    <div class="stat-label">합리적 수수료</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" style="color: #FF8C00;">100+</div>
+                    <div class="stat-label">충남대 학생 조사</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem">
+        <h2>🤔 혹시 당신도 이런 문제로<br>고민하고 계신가요?</h2>
+        <p class="section-subtitle">들고가유는 💰절약과 환경 보호를 동시에 실현하는 대학가 필수 앱입니다</p>
+
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">💸</div>
+                <h3 class="card-title">대학생의 고민</h3>
+                <p class="card-desc">월 외식비 30~50만원... 매일 합리적인 한 끼를 찾는 게 너무 어려워요.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📦</div>
+                <h3 class="card-title">점주님의 고민</h3>
+                <p class="card-desc">수도권과 달리 지방 상권은 마감 할인 정보 제공이 미흡해 남은 재고 처리가 부담이에요.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌍</div>
+                <h3 class="card-title">환경 문제</h3>
+                <p class="card-desc">맛있는 음식이 매일 버려지고, 음식물 쓰레기 처리 비용과 환경 문제가 심각해지고 있어요.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <div class="green-section" id="solution">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2>'들고가유'가 제시하는<br><span style="color: #FF8C00;">3가지 스마트한 해결책</span></h2>
+            <br>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="solution-icon">🔔</div>
+                    <span class="solution-badge">대학생</span>
+                    <h3 class="card-title">실시간 위치 기반 푸시 알림</h3>
+                    <p class="card-desc">외식비 부담 완화 및 합리적 소비 문화 확산</p>
+                </div>
+                <div class="card">
+                    <div class="solution-icon">📉</div>
+                    <span class="solution-badge">점주님</span>
+                    <h3 class="card-title">남은 음식 수익화 및 운영 효율 개선</h3>
+                    <p class="card-desc">재고 활용 및 매출 증대 기회 제공</p>
+                </div>
+                <div class="card">
+                    <div class="solution-icon">🌱</div>
+                    <span class="solution-badge">지역 사회</span>
+                    <h3 class="card-title">점주-학생 중개 상생 플랫폼</h3>
+                    <p class="card-desc">음식물 쓰레기 감소 및 친환경 가치 실현</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>기존 배달 플랫폼의 높은 수수료(약 8~10%) 부담 없이,</strong><br>
+                합리적인 수수료(거래액 5~6%)로 상생을 시작하세요!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <section id="benefits">
+        <h2>들고가유를 써야 하는<br><span style="color: #FF8C00;">3가지 이유!</span></h2>
+        <br>
+
+        <div class="benefit-list">
+            <div class="benefit-item">
+                <div class="benefit-icon">🛍️</div>
+                <div class="benefit-content">
+                    <h3>🧡 실속 절약</h3>
+                    <p>폐기 직전 음식을 높은 할인율로 구매! 지갑은 두둑하게, 만족도는 높게!</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">📍</div>
+                <div class="benefit-content">
+                    <h3>🔔 놓칠 일 없는 정보</h3>
+                    <p>위치 기반 푸시 알림으로 내가 있는 곳 주변의 마감 할인 정보를 실시간으로 확인!</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">🌿</div>
+                <div class="benefit-content">
+                    <h3>🌱 착한 소비</h3>
+                    <p>음식을 버리지 않고 소비함으로써, 환경을 생각하는 '친환경 마감 음식 플랫폼' 참여!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <div class="orange-section" id="trust">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2>이미 시작된 들고가유,<br><span style="color: #FF8C00;">안심하고 함께하세요!</span></h2>
+            <p class="section-subtitle">우리는 대전권 대학생이 직접 만든 로컬 상생 플랫폼입니다</p>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3 class="card-title">지역 기반 데이터 확보</h3>
+                    <p class="card-desc">충남대학교 학생 약 100명의 수요 조사 완료!</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛍️</div>
+                    <h3 class="card-title">MVP 준비</h3>
+                    <p class="card-desc">대전 궁동 음식점 10곳 이상 제휴 의향 확보 예정 및 베타 서비스 준비 중!</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✅</div>
+                    <h3 class="card-title">상표권 보호</h3>
+                    <p class="card-desc">브랜드명 '들고가유' 상표권 출원 예정 (2025년 12월)</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3 class="card-title">상생 약속</h3>
+                    <p class="card-desc">법적 리스크 최소화를 위한 전문가 검수 예정 및 표준협약서 활용!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <h2>지금 바로 신청하고<br><span style="color: #FF8C00;">초기 파트너 혜택</span>을 잡으세요!</h2>
+        
+        <div class="pricing-alert">
+            <span>선착순 10곳 한정 🔥</span>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card featured">
+                <div class="pricing-label">초기 파트너 특별 혜택</div>
+                <div class="pricing-title">베타 기간<br>(초기 3개월)</div>
+                <ul class="pricing-features">
+                    <li><span style="font-size: 1.5rem;">✓</span> 입점비 0원</li>
+                    <li><span style="font-size: 1.5rem;">✓</span> <strong>수수료 0%</strong></li>
+                </ul>
+                <div class="pricing-footer">
+                    <p>완전 무료로 시작하세요!</p>
+                </div>
+            </div>
+
+            <div class="pricing-card standard">
+                <div class="pricing-label" style="color: #6b7280;">일반 수수료</div>
+                <div class="pricing-title" style="color: #1f2937;">정식 서비스<br>이후</div>
+                <ul class="pricing-features" style="color: #4b5563;">
+                    <li><span style="color: #2ECC71; font-size: 1.5rem;">✓</span> 입점비 0원 (평생)</li>
+                    <li><span style="color: #2ECC71; font-size: 1.5rem;">✓</span> 거래액 기준 <strong>5~6%</strong></li>
+                </ul>
+                <div class="pricing-footer">
+                    <p style="color: #6b7280;">경쟁사 대비 최저 수수료!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box" style="background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+            <p style="color: #065f46;"><strong>점주님께는 남은 음식을 수익화할 기회를,<br>
+            대학생에게는 절약의 기회를 제공합니다!</strong></p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <div class="cta-section" id="cta">
+        <div class="cta-content">
+            <div class="cta-emoji">👨‍🍳 👩‍🎓</div>
+            
+            <h2>남은 재고는 줄이고,<br>대학생 고객은 늘리세요!</h2>
+            
+            <p>지속 가능한 우리 동네 상생 모델, '들고가유'가 함께합니다.</p>
+
+            <div style="margin: 3rem 0;">
+                <a href="#" class="btn btn-primary" style="background: white; color: #FF8C00; font-size: 1.3rem; padding: 1.3rem 3rem;">
+                    🚀 대학가 소상공인 제휴 문의/신청하기
+                </a>
+                <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.9;">첫 3개월 무수수료 혜택 제공!</p>
+            </div>
+
+            <div class="form-container">
+                <h3>문의하기</h3>
+                <form onsubmit="return handleSubmit(event)">
+                    <div class="form-group">
+                        <label>상호명</label>
+                        <input type="text" placeholder="예: 맛있는 분식" required>
+                    </div>
+                    <div class="form-group">
+                        <label>연락처</label>
+                        <input type="tel" placeholder="010-0000-0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>위치</label>
+                        <input type="text" placeholder="대전 유성구 궁동" required>
+                    </div>
+                    <button type="submit" class="submit-btn">제휴 신청하기 🚀</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <svg width="50" height="50" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="30" y="50" width="60" height="50" rx="4" fill="#FF8C00"/>
+                <path d="M 45 50 Q 45 35 60 35 Q 75 35 75 50" stroke="#FF8C00" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <circle cx="48" cy="70" r="3" fill="white"/>
+                <circle cx="72" cy="70" r="3" fill="white"/>
+                <path d="M 48 80 Q 60 88 72 80" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <ellipse cx="66" cy="83" rx="4" ry="3" fill="white"/>
+            </svg>
+            <span class="footer-text">들고가유</span>
+        </div>
+        <p class="footer-desc">대전권 대학생 맞춤형 로컬 상생 플랫폼</p>
+        <p class="footer-copyright">© 2025 들고가유. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handler
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('신청이 접수되었습니다! 곧 연락드리겠습니다. 😊');
+            event.target.reset();
+            return false;
+        }
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and benefit items
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.card, .benefit-item, .stat-item, .pricing-card');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
